@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="/static/main.css" />
+
+<div class="login-area">
+</div>
+
+<div class="title">
+{% block title %}
+{% endblock %}
+
+</head>  
+
+
+<body>
+  <a href="/blog" class="main-title">
+    mehmettekn / webapps
+  </a>
+
+<h2><a href="/" class="create"> Main Page</a></h2>
+
+  <div id="content">
+  {% block content %}
+  {% endblock %}
+  </div>
+</body>
+
+</html>
+

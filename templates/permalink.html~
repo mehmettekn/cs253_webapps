@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> mehmettekn / blog </title>
+{% endblock %}
+
+<div class="login-area"> 
+{% if user: %}
+{{user}} 
+(<a href="/logout" class="login-area">logout</a>)
+{% endif %}
+</div>
+
+{% block main_title %}
+<a href="/blog" class="main-title">
+    mehmettekn / blog
+  </a>
+{% endblock %}
+
+{% block content %}
+	{{post.render() | safe}}
+{% endblock %}
+

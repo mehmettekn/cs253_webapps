@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> mehmettekn / webapps </title>
+{% endblock %}
+
+{% block main_title %}
+<a href="/" class="main-title">
+    mehmettekn / webapps
+  </a>
+{% endblock %}
+
+
+{% block content %}
+	<body>
+		<h2>Enter some text to ROT13:</h2>
+		<form method='post'>
+			<textarea name='text'
+					  style='height: 100px; width: 400px;'>{{text}}
+			</textarea>
+		<br>
+		<input type='submit'>
+		</form>
+	</body>
+{% endblock %}
+
+

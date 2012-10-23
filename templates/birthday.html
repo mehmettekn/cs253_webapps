@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> mehmettekn / webapps </title>
+{% endblock %}
+
+{% block main_title %}
+<a href="/" class="main-title">
+    mehmettekn / webapps
+  </a>
+{% endblock %}
+
+{% block content %}
+	<h2> Birthday Validator</h2>
+	
+	<body>
+		<label> Enter a valid date, see if it's valid for real!</label>
+		<br>
+		<br>
+	    
+        <form method= 'post'>
+        <table id='bday'>
+        <tr>
+        <td class='label'>
+			 Month	
+        </td>
+        <td>			
+	        <input type="bday" name="month" value='{{month}}'>
+        </td>			
+        </tr>
+        <tr>
+        <td class="label">
+             Day
+        </td>
+        <td>
+			<input type="bday" name="day" value='{{day}}'>
+        </td>			
+        </tr>	
+        <td class="label">
+            Year		
+        </td>
+        <td>		
+        <input type="bday" name="year" value='{{year}}'>
+        </td>				
+        </tr>        	
+            <div style='color: red'>{{error}}</div>
+			<br>
+			
+		
+        </table>
+        <input type="submit">
+                </form>
+        	
+        
+</body>
+{% endblock %}
+

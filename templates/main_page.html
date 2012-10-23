@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>MEHMET's Experimental Web Apps</title>
+	</head>
+	<div class="login-area"> 
+        {% if user: %}
+        {{user}} 
+        <a href="/logout" class="login-area">(logout)</a>
+        {% endif %}
+    </div>
+
+
+	<style type='text/css'>
+	
+	p.blocktext{
+		margin-left:auto;
+		margin-right:auto;
+		width: 6em;
+		font-size:16px;		
+		}
+
+	img.image1 {
+		display:block;
+		margin-left:auto;
+		margin-right:auto;
+		}
+
+	h2   {
+		font-family:Helvetica;
+		font-size: 30px;
+		margin: auto;
+		text-align: center;
+		
+
+	     }
+
+	body {
+			font-family: Helvetica, Arial, sans-serif;
+			font-size: 25px;
+
+			width: 800px;
+			margin: 0 auto;
+			padding: 10px;
+			color: #eee;
+			background-color: #1d1d1d
+	     }
+	
+	div.login-area {
+            position: absolute;
+            right: 40px;
+            top: 20px;
+            color: #999;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+/* LIST #1 */
+#list1 { }
+#list1 ul { list-style:none; text-align:center; border-top:1px solid #eee; border-bottom:1px solid #eee; padding:10px 0; }
+#list1 ul li { display:inline; text-transform:uppercase; padding:0 10px; letter-spacing:10px; }
+#list1 ul li a { text-decoration:none; color:#eee; }
+#list1 ul li a:hover { text-decoration:underline; }
+
+	 </style>
+
+	<body>
+		<h2>Kucuk Mehmet's Web Apps</h2>
+
+	<img class="image1" src="http://sphotos-e.ak.fbcdn.net/hphotos-ak-ash4/376522_408490612520666_1491596884_n.jpg" height='300' width='450'
+image-align:middle />
+
+
+	<hr>
+
+
+	<p class="blocktext"> These are the web applications I designed for 		       educational purposes of my own. </p>
+	<div id="list1">
+	<ul>
+		<li><a href='/blog'>Blog</a></li>
+        <li><a href='/login'>Login</a></li>        
+        <li><a href='/signup'>Signup</a></li>        
+        <li><a href='/birthday'>Birthday Validation</a></li>
+		<li><a href='/rot13'>ROT13 Converter</a></li>
+
+	</ul>
+	</div>	
+	
+	</body>
+
+</html>
+

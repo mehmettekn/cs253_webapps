@@ -1,0 +1,65 @@
+{% extends "webapps.html" %}
+
+{% block title %}
+<title> mehmettekn / blog </title>
+{% endblock %}
+
+<div class="login-area"> 
+{% if user: %}
+{{user}} 
+(<a href="/logout" class="login-area">logout</a>)
+{% endif %}
+</div>
+
+{% block main_title %}
+<a href="/blog" class="main-title">
+    mehmettekn / blog
+  </a>
+{% endblock %}
+
+
+{% block content %}
+
+	<body>
+		<h2>Login into your mehmettekn account!</h2>
+
+	<p>
+		If you are on this page, you should have already been to the signup page,
+        where you created your account. Your account data is stored in the safe
+        servers of Google Appengine servers. Your password is hashed, even I can't
+        know what it is.
+	</p>
+
+	<form method='post'>
+		<table>
+			<tr>
+				<td class='label'>
+					Username
+				</td>
+				<td>
+				 <input type='bday' name='username' value="{{username}}">
+				</td>
+				<td class='error'>
+					{{error_username}}
+				</td>			
+			</tr>
+
+			<tr>
+				<td class="label">
+					Password
+				</td>
+				<td>
+					<input type='password' name='password' value=''>
+				</td>
+				<td class="error">
+					{{error_pass}}
+				</td>
+			</tr>
+		</table>
+		<br>
+		<br>
+		<input type='submit'>
+	</form>
+	</body>
+{% endblock %}
+

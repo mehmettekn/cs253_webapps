@@ -1,0 +1,110 @@
+""" This is the main script. It is imported to all the other scripts as
+    a base script. """
+
+import os
+import webapp2
+import jinja2
+import json
+import logging
+import re
+
+from datetime import datetime, timedelta
+from password import *
+from google.appengine.ext import db
+from google.appengine.api import memcache
+
+jinja_environment = jinja2.Environment(autoescape=True,
+    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')))
+
+def blog_key(name = 'default'):
+	return db.Key.from_path('blogs', name)
+
+def users_key(group = 'default'):
+    return db.Key.from_path('users', group)
+
+def render_str(template, **params):
+	t = jinja_environment.get_template(template)
+	return t.render(params)	
+
+def render_post(response, post):
+	response.out.write('<b>' + post.subject + '</b><br>')
+	response.out.write(post.content)
+
+class User(db.Model):
+	username = db.StringProperty(required = True)
+	pw_hash = db.StringProperty(required = True)
+	email = db.StringProperty()
+
+	@classmethod
+	def by_id(cls, uid):
+		return User.get_by_id(uid, parent = users_key())
+
+	@classmethod
+	def by_name(cls, username):
+		u = User.all().filter('name=', username).get()
+		return u
+
+	@classmethod
+	def register(cls, username, pw, email = None):
+		pw_hash = make_pw_hash(username, pw)
+		return User(parent = users_key(),
+					username = username,
+					pw_hash = pw_hash,
+					email = email)
+
+	@classmethod
+	def login(cls, username, pw):
+		u = cls.by_name(username)
+		
+		if u and valid_pw(username, pw, u.pw_hash):
+			return u
+
+class BaseHandler(webapp2.RequestHandler):
+    def initialize(self, *a, **kw):
+        webapp2.RequestHandler.initialize(self, *a, **kw)
+        uid = self.read_cookie('user_id')
+        self.user = uid and User.by_id(int(uid))
+
+        if self.request.url.endswith('.json'):
+            self.format = 'json'
+        else:
+            self.format = 'html'
+    
+    def render_json(self, d):
+        json_txt = json.dumps(d)
+        self.response.headers['Content-Type'] = 'application/json; charset=UTF-8'   
+        self.write(json_txt)
+
+    def render(self, template, **kw):
+        self.write(self.render_str(template, **kw))
+
+    def write(self, *a, **kw):
+        self.response.out.write(*a, **kw)
+
+    def render_str(self, template, **params):
+        if self.user:        
+            params["user"] = self.user.username
+        return render_str(template, **params)
+
+    def set_secure_cookie(self, name, val):
+        cookie_val = make_secure_val(val)
+        self.response.headers.add_header(
+				"Set-Cookie",
+				"%s=%s; Path=/" % (name, cookie_val))
+
+    def login(self, user):
+        self.set_secure_cookie('user_id', str(user.key().id()))
+
+    def logout(self):
+        self.set_secure_cookie('user_id', None)
+
+    def read_cookie(self, name):
+        cookie_val = self.request.cookies.get(name)
+        return cookie_val and check_secure_val(cookie_val)
+    
+
+class MainHandler(BaseHandler):
+    def get(self):
+        self.render('main_page.html')
+
+app = webapp2.WSGIApplication([('/', MainHandler)], debug=True)

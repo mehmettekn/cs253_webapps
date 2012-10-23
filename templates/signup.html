@@ -1,0 +1,87 @@
+{% extends "webapps.html" %}
+
+{% block title %}
+<title> mehmettekn / blog </title>
+{% endblock %}
+
+<div class="login-area"> 
+{% if self.user: %}
+{{user}} 
+(<a href="/logout" class="login-area">logout</a>)
+{% endif %}
+</div>
+
+{% block main_title %}
+<a href="/blog" class="main-title">
+    mehmettekn / blog
+  </a>
+{% endblock %}
+
+{% block content %}
+
+	<body>
+		<h2>Example User Signup Page</h2>
+
+	<p>
+		This is an example user signup page. Below is an HTML
+		form. It validates user name, email address and matches
+		passwords using Python script.
+	</p>
+
+	<form method='post'>
+		<table>
+			<tr>
+				<td class='label'>
+					Username
+				</td>
+				<td>
+				 <input type='bday' name='username' value="{{username}}">
+				</td>
+				<td class='error'>
+					{{error_username}}
+				</td>			
+			</tr>
+
+			<tr>
+				<td class="label">
+					Password
+				</td>
+				<td>
+					<input type='password' name='password' value=''>
+				</td>
+				<td class="error">
+					{{error_pass}}
+				</td>
+			</tr>
+			<tr>				
+				<td class="label">
+					Password again
+				</td>
+				<td>
+					 <input type='password' name='verify'  value=''>
+				</td>
+				<td class='error'>
+					{{error_pass2}}
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="label">
+					e-mail (optional)
+				</td>
+				<td>
+					 <input type='bday' name='email' value='{{email}}'>
+				</td>
+				<td class='error'>
+					{{error_email}}
+				</td>
+			</tr>
+		</table>
+		<br>
+		<br>
+		<input type='submit'>
+	</form>
+	</body>
+{% endblock %}
+
+			

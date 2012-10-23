@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="/static/main.css" />
+
+<a href="/">
+<div class="main-link">
+Main Page
+</div></a>
+
+<div class="login-area"> 
+{% if user: %}
+{{user}}
+<a href="/logout" class="login-area">(logout)</a>
+{% endif %}
+</div>
+
+<div class="title">
+    {% block title %}
+    {% endblock %}
+</div>
+  
+</head>
+
+
+<body>
+  <div class="main-title">
+    {% block main_title %}
+    {% endblock %}
+  </div>
+
+<h2><a href="/blog/newpost" class="create"> Create New Post</a></h2>
+
+  <div id="content">
+  {% block content %}
+  {% endblock %}
+  </div>
+</body>
+
+</html>
+
